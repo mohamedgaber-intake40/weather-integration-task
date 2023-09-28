@@ -20,7 +20,11 @@ abstract class BaseWeatherService implements WeatherService
     ) {
         $this->http = $this->http->timeout(
             seconds: 15
-        )->baseUrl(
+        )->retry(
+            times: 3,
+            sleepMilliseconds: 1000
+        )
+         ->baseUrl(
             url: $this->baseUrl
         )->acceptJson();
     }
