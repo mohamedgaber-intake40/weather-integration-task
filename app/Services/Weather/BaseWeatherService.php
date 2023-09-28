@@ -8,25 +8,29 @@ use App\Services\Weather\Contracts\WeatherService;
 use App\Services\Weather\Exceptions\InvalidWeatherResponse;
 use App\ValueObjects\Location;
 use Carbon\CarbonImmutable;
+use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\PendingRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 abstract class BaseWeatherService implements WeatherService
 {
+    protected Factory|PendingRequest $http;
+
     public function __construct(
-        protected PendingRequest $http,
+        Factory          $httpFactory,
         protected string $baseUrl
-    ) {
-        $this->http = $this->http->timeout(
+    )
+    {
+        $this->http = $httpFactory->timeout(
             seconds: 15
         )->retry(
             times: 3,
             sleepMilliseconds: 1000
         )
-         ->baseUrl(
-            url: $this->baseUrl
-        )->acceptJson();
+                                  ->baseUrl(
+                                      url: $this->baseUrl
+                                  )->acceptJson();
     }
 
     public function getWeather(Location $location, CarbonImmutable $date): WeatherResponseDataObject
@@ -49,7 +53,7 @@ abstract class BaseWeatherService implements WeatherService
      */
     protected function ensureResponseIsValid(array $response): void
     {
-        if (! $this->isResponseValid($response)) {
+        if ( !$this->isResponseValid($response) ) {
             $this->throwInvalidResponseException($response);
         }
     }

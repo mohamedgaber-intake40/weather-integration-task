@@ -32,7 +32,7 @@ return [
     ],
 
     'weather' => [
-        'service' => 'weather_bit',
+        'service' => 'open_meteo_weather',
 
         'weather_bit' => [
             'base_url' => env('WEATHER_BIT_BASE_URL'),

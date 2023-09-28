@@ -14,7 +14,7 @@ class OpenMeteoWeatherResponseDataObject implements WeatherResponseDataObject
     public static function fromArray(array $response)
     {
         return new self(
-            temperature: $response['daily']['apparent_temperature_max'][0]
+            temperature: (float) $response['daily']['apparent_temperature_max'][0]
         );
     }
 
