@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use App\Services\Weather\Contracts\DataObjects\WeatherResponseDataObject;
@@ -12,10 +14,11 @@ class WeatherResource extends JsonResource
      * @var WeatherResponseDataObject
      * */
     public $resource;
+
     public function toArray(Request $request): array
     {
         return [
-            'temperature' => $this->resource->getTemperature()
+            'temperature' => $this->resource->getTemperature(),
         ];
     }
 }

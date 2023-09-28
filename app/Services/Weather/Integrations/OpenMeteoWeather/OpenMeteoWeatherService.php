@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Weather\Integrations\OpenMeteoWeather;
 
 use App\Services\Weather\BaseWeatherService;
@@ -12,14 +14,14 @@ use Carbon\CarbonImmutable;
 
 class OpenMeteoWeatherService extends BaseWeatherService
 {
-    protected function requestPath(): string
-    {
-        return '/forecast';
-    }
-
     public function isResponseValid(array $response): bool
     {
         return isset($response['daily']['apparent_temperature_max'][0]);
+    }
+
+    protected function requestPath(): string
+    {
+        return '/forecast';
     }
 
     protected function buildPayload(Location $location, CarbonImmutable $date): WeatherPayloadDataObject

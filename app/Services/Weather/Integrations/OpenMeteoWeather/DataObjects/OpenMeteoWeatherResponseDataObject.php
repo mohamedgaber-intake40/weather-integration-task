@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Weather\Integrations\OpenMeteoWeather\DataObjects;
 
 use App\Services\Weather\Contracts\DataObjects\WeatherResponseDataObject;

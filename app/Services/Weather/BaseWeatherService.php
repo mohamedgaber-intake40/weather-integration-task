@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Weather;
 
 use App\Services\Weather\Contracts\DataObjects\WeatherPayloadDataObject;
@@ -18,20 +20,27 @@ abstract class BaseWeatherService implements WeatherService
     protected Factory|PendingRequest $http;
 
     public function __construct(
-        Factory          $httpFactory,
+        Factory $httpFactory,
         protected string $baseUrl
-    )
-    {
+    ) {
         $this->http = $httpFactory->timeout(
             seconds: 15
         )->retry(
             times: 3,
             sleepMilliseconds: 1000
         )
-                                  ->baseUrl(
-                                      url: $this->baseUrl
-                                  )->acceptJson();
+            ->baseUrl(
+                url: $this->baseUrl
+            )->acceptJson();
     }
+
+    abstract protected function requestPath(): string;
+
+    abstract protected function buildPayload(Location $location, CarbonImmutable $date): WeatherPayloadDataObject;
+
+    abstract protected function buildResponse(array $response): WeatherResponseDataObject;
+
+    abstract public function isResponseValid(array $response): bool;
 
     public function getWeather(Location $location, CarbonImmutable $date): WeatherResponseDataObject
     {
@@ -53,7 +62,7 @@ abstract class BaseWeatherService implements WeatherService
      */
     protected function ensureResponseIsValid(array $response): void
     {
-        if ( !$this->isResponseValid($response) ) {
+        if (! $this->isResponseValid($response)) {
             $this->throwInvalidResponseException($response);
         }
     }
@@ -75,12 +84,4 @@ abstract class BaseWeatherService implements WeatherService
             $this->throwInvalidResponseException($response->json());
         })->json();
     }
-
-    abstract protected function requestPath(): string;
-
-    abstract protected function buildPayload(Location $location, CarbonImmutable $date): WeatherPayloadDataObject;
-
-    abstract protected function buildResponse(array $response): WeatherResponseDataObject;
-
-    abstract public function isResponseValid(array $response): bool;
 }

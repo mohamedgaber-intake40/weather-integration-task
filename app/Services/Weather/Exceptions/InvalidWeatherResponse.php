@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Weather\Exceptions;
 
-use Symfony\Component\HttpFoundation\Response;
+use Exception;
 
-class InvalidWeatherResponse extends \Exception
+class InvalidWeatherResponse extends Exception
 {
     public function render()
     {

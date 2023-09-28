@@ -36,16 +36,15 @@ return [
 
         'weather_bit' => [
             'base_url' => env('WEATHER_BIT_BASE_URL'),
-            'api_key' =>  env('WEATHER_BIT_API_KEY'),
-            'service_class' => \App\Services\Weather\Integrations\WeatherBit\WeatherBitService::class
+            'api_key' => env('WEATHER_BIT_API_KEY'),
+            'service_class' => \App\Services\Weather\Integrations\WeatherBit\WeatherBitService::class,
         ],
 
         'open_meteo_weather' => [
             'base_url' => env('OPEN_METEO_WEATHER_BASE_URL'),
             'timezone' => 'Africa/Cairo',
-            'service_class' => \App\Services\Weather\Integrations\OpenMeteoWeather\OpenMeteoWeatherService::class
+            'service_class' => \App\Services\Weather\Integrations\OpenMeteoWeather\OpenMeteoWeatherService::class,
         ],
     ],
-
 
 ];

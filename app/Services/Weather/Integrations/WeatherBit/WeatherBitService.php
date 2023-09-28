@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Weather\Integrations\WeatherBit;
 
 use App\Services\Weather\BaseWeatherService;
@@ -12,14 +14,14 @@ use Carbon\CarbonImmutable;
 
 class WeatherBitService extends BaseWeatherService
 {
-    protected function requestPath(): string
-    {
-        return '/history/daily';
-    }
-
     public function isResponseValid(array $response): bool
     {
         return isset($response['data']);
+    }
+
+    protected function requestPath(): string
+    {
+        return '/history/daily';
     }
 
     protected function buildPayload(Location $location, CarbonImmutable $date): WeatherPayloadDataObject
@@ -29,7 +31,8 @@ class WeatherBitService extends BaseWeatherService
                 'lat' => $location->lat,
                 'lon' => $location->lon,
                 'date' => $date,
-            ]);
+            ]
+        );
     }
 
     protected function buildResponse(array $response): WeatherResponseDataObject

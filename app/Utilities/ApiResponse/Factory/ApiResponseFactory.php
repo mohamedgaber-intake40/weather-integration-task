@@ -1,9 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Utilities\ApiResponse\Factory;
-
-
 
 use App\Utilities\ApiResponse\Builder\ErrorApiResponseBuilder;
 use App\Utilities\ApiResponse\Builder\SuccessApiResponseBuilder;

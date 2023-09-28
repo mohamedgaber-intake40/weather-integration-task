@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Weather\Integrations\OpenMeteoWeather\DataObjects;
 
 use App\Services\Weather\Contracts\DataObjects\WeatherPayloadDataObject;
@@ -31,7 +33,7 @@ class OpenMeteoWeatherPayloadDataObject implements WeatherPayloadDataObject
             'start_date' => $this->date->toDateString(),
             'end_date' => $this->date->toDateString(),
             'daily' => 'apparent_temperature_max',
-            'timezone' => config('services.weather.open_meteo_weather.timezone')
+            'timezone' => config('services.weather.open_meteo_weather.timezone'),
         ];
     }
 }

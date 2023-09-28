@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -13,7 +15,8 @@ class WeatherController extends Controller
 {
     public function __construct(
         private readonly WeatherService $weatherService
-    ){}
+    ) {
+    }
 
     public function __invoke(WeatherRequest $request)
     {

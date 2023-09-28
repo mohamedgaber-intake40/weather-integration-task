@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Weather\Factory;
 
 use App\Services\Weather\Contracts\WeatherService;
-use App\Services\Weather\Integrations\OpenMeteoWeather\OpenMeteoWeatherService;
-use App\Services\Weather\Integrations\WeatherBit\WeatherBitService;
 
 class WeatherServiceFactory
 {
@@ -12,6 +12,7 @@ class WeatherServiceFactory
     {
         $weatherService = config('services.weather.service');
         $weatherServiceConfig = config('services.weather')[$weatherService];
+
         return app()->make($weatherServiceConfig['service_class'], ['baseUrl' => $weatherServiceConfig['base_url']]);
     }
 }

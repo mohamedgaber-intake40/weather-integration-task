@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Api;
 
 use Illuminate\Contracts\Validation\Validator;
@@ -12,20 +14,21 @@ abstract class BaseApiRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $validationException = new ValidationException($validator);
-        $errors              = $validationException->errors();
-        if ( !count($errors) ) return null;
+        $errors = $validationException->errors();
+        if (! count($errors)) {
+            return null;
+        }
 
         $transformedErrors = [];
-        foreach ( $errors as $field => $messages ) {
-            $transformedErrors[ $field ] = $messages[ 0 ];
+        foreach ($errors as $field => $messages) {
+            $transformedErrors[$field] = $messages[0];
         }
+
         return apiResponse()->error()
-                            ->withErrors($transformedErrors)
-                            ->statusCode(Response::HTTP_UNPROCESSABLE_ENTITY)
-                            ->message($validationException->getMessage())
-                            ->send();
+            ->withErrors($transformedErrors)
+            ->statusCode(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->message($validationException->getMessage())
+            ->send();
 
     }
-
-
 }
