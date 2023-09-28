@@ -1,0 +1,6 @@
+#!/bin/bash
+
+args="$@"
+command="php artisan $args"
+echo "$command"
+docker-compose run phpapache $command\
