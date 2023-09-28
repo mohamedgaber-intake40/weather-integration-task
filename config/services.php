@@ -31,4 +31,16 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'weather' => [
+        'service' => 'weather_bit',
+
+        'weather_bit' => [
+            'base_url' => env('WEATHER_BIT_BASE_URL'),
+            'api_key' =>  env('WEATHER_BIT_API_KEY'),
+            'service_class' => \App\Services\Weather\Integrations\WeatherBit\WeatherBitService::class
+        ],
+
+    ],
+
+
 ];
