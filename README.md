@@ -34,7 +34,7 @@ $ docker compose up
 to run test
 
 ```
-$ ./docker/php-artisan test
+$ ./docker/php-artisan test --order-by random
 ```
 
 you can test the api by import postman collection file included in the repo.
