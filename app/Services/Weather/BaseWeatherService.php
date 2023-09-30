@@ -27,11 +27,11 @@ abstract class BaseWeatherService implements WeatherService
             seconds: 15
         )->retry(
             times: 3,
-            sleepMilliseconds: 1000
-        )
-            ->baseUrl(
+            sleepMilliseconds: 500,
+            throw: false
+        )->baseUrl(
                 url: $this->baseUrl
-            )->acceptJson();
+        )->acceptJson();
     }
 
     abstract protected function requestPath(): string;
